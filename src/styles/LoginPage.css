@@ -1,0 +1,16 @@
+/* LoginPage.css */
+
+.login-page {
+    background: linear-gradient(to bottom, #ffffff 60%, var(--color-Background2) 50%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login-page-main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

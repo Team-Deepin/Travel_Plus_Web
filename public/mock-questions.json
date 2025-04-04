@@ -1,0 +1,15 @@
+[
+    {
+      "questionId": 1,
+      "title": "로그인이 되지 않습니다.",
+      "writer": "user1",
+      "answered": false
+    },
+    {
+      "questionId": 2,
+      "title": "비밀번호를 잊었어요.",
+      "writer": "user2",
+      "answered": true
+    }
+  ]
+  

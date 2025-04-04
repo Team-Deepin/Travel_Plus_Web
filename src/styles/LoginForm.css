@@ -1,0 +1,59 @@
+/* LoginForm.css */
+
+.login-container {
+    background-color: var(--color-SideBar);
+    padding: 40px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    max-width: 400px;
+  }
+  
+  .login-logo {
+    width: 130px;
+    display: block;
+  }
+  
+  .login-title {
+    font-family: var(--font-Logo);
+    font-size: var(--font-size-Logo);
+    margin: 0;
+    margin-bottom: 12px;
+  }
+  
+  .login-subtitle {
+    font-family: var(--font-Main);
+    font-size: var(--font-size-SubTitle);
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+  
+  .login-input {
+    display: block;
+    width: 220px;
+    padding: 10px;
+    margin-bottom: 12px;
+    font-size: var(--font-size-Body);
+    font-family: var(--font-Main);
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #eee;
+  }
+  
+  .login-button-container {
+    text-align: right;
+  }
+  
+  .login-button {
+    padding: 10px 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    background-color: var(--color-Button);
+    color: #fff;
+    font-size: var(--font-size-Body);
+    font-family: var(--font-Main);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
