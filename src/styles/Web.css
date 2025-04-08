@@ -54,7 +54,7 @@
 .dashboard-content {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
 }
 
 .card {
@@ -63,19 +63,31 @@
   border-radius: 16px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   flex-shrink: 0;
+  flex-direction: column;
 }
 
 .card-row {
   display: flex;
-  flex-direction: row;
-  gap: 2%;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  gap: 16px;
+}
+
+.column-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .card-1 {
-  width: 90%;
+  width: 300px;
+  height: 200px;
 }
 
-.card-2,
+.card-2 {
+  width: 300px;
+  height: 462px;
+}
 .card-3 {
   width: 42%
 }
@@ -84,6 +96,8 @@
   font-family: var(--font-Main);
   font-size: var(--font-size-Title);
   color: #000000;
+  align-self: flex-start;
+  margin-top: 8px;
 }
 
 
