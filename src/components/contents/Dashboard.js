@@ -1,14 +1,27 @@
 // DashboardPage.js
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/Web.css";
+import { getTodos } from "../../lib/dashboard";
 
 const DashboardPage = () => {
+  const [todo, setTodo] = useState(null);
+
+  useEffect(() => {
+    const fetchTodo = async () => {
+      const result = await getTodos(1);
+      console.log("getTodos:", result);
+      setTodo(result);
+    }
+    fetchTodo();
+  }, []);
+
   return (
     <div className="dashboard-content">
       <div className="card-row">
         <div className="card card-1">
           <p className="card-text">이번 주 활성 사용자 수</p>
+          {console.log('todo', todo ? todo.title : '로딩 중')}
         </div>
       </div>
 
