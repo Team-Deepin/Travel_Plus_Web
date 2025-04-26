@@ -76,8 +76,6 @@ const User = () => {
           <tr>
             <th>회원 번호</th>
             <th>이름</th>
-            <th>성별</th>
-            <th>나이</th>
             <th>가입일</th>
             <th>아이디</th>
             <th>정지</th>

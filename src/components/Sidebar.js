@@ -7,6 +7,7 @@ import logoIcon from "../assets/logo.png";
 import dashboardIcon from "../assets/Sidebar/dashboard.png";
 import userIcon from "../assets/Sidebar/user.png";
 import mapIcon from "../assets/Sidebar/map.png";
+import AIIcon from "../assets/Sidebar/AI.png";
 import contactIcon from "../assets/Sidebar/contact.png";
 import noticeIcon from "../assets/Sidebar/notice.png";
 
@@ -14,6 +15,7 @@ const menuItems = [
   { icon: dashboardIcon, label: "대시보드", key: "dashboard" },
   { icon: userIcon, label: "회원 관리", key: "users" },
   { icon: mapIcon, label: "여행지 관리", key: "places" },
+  { icon: AIIcon, label: "AI 관리", key: "AI" },
   { icon: contactIcon, label: "문의사항", key: "questions" },
   { icon: noticeIcon, label: "공지사항", key: "notice" },
 ];

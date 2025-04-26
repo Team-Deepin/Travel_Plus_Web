@@ -7,7 +7,7 @@
     --color-SideBar: #C6E7FF;
     --color-Point: #578FCA;
     --color-Button: #3674B5;
-    --color-Main: #D1E4F0;
+    --color-Main: #cbe2f1;
 
 
     /* 폰트 */
@@ -16,7 +16,8 @@
 
     /* 폰트 사이즈 */
     --font-size-Logo: 55px;
-    --font-size-Title: 30px;
+    --font-size-value: 80px;
+    --font-size-Title: 40px;
     --font-size-SubTitle: 24px;
     --font-size-Body: 16px;
 }

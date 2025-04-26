@@ -5,6 +5,7 @@ import Sidebar from "./Sidebar";
 import Dashboard from "./contents/Dashboard";
 import Users from "./contents/Users";
 import Places from "./contents/Places";
+import AI from "./contents/AI";
 import Questions from "./contents/Questions";
 import Answer from "./contents/Answer";
 import "../styles/Web.css";
@@ -25,6 +26,8 @@ const Content = () => {
         return <Users />;
       case "places":
         return <Places />;
+      case "AI":
+        return <AI />;
       case "questions":
         return (
           <Questions
