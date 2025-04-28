@@ -1,9 +1,9 @@
 // AI.js
 
 import React, { useState } from "react";
-import CatBoostTab from "./CatBoostTab.js";
-import FactorizationTab from "./FactorizationTab";
 import "../../styles/Web.css";
+import CatBoostTab from "./CatBoostTab.js";
+import FactorizationTab from "./FactorizationTab.js";
 
 const AI = () => {
   const [activeTab, setActiveTab] = useState("CatBoost");

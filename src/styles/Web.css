@@ -6,16 +6,23 @@
 
 .main-content {
   flex: 1;
-  background: linear-gradient(to right, var(--color-Background2) 50%, var(--color-Background) 60%);
+  background: linear-gradient(
+    to right,
+    var(--color-Background2) 50%,
+    var(--color-Background) 60%
+  );
   padding-left: 250px;
   padding-top: 100px;
   min-height: 90vh;
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
   background-color: var(--color-Main);
   width: 90%;
   min-width: 800px;
+  min-height: 850px;
   padding: 32px;
   border-radius: 16px;
   margin-bottom: 24px;
@@ -42,14 +49,25 @@
 .search button {
   padding: 8px 12px;
   border: none;
-  background-color: var(--color-Button);
+  background-color: var(--color-Point1);
   border-radius: 8px;
   cursor: pointer;
 }
 
+.X {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--font-size-SubTitle);
+}
+
+.X:hover {
+  transform: scale(1.2);
+}
 
 /* -------------------------------------------------- */
 
+/* 대시보드 */
 
 .dashboard-content {
   display: flex;
@@ -64,6 +82,8 @@
   flex-wrap: nowrap;
   padding-bottom: 12px;
   gap: 16px;
+  overflow-x: auto;
+  min-width: fit-content;
 }
 
 .column-wrap {
@@ -85,19 +105,20 @@
 
 .card-1 {
   flex: 1 1 33%;
-  min-width: 300px;
+  min-width: 350px;
+  min-height: 200px;
 }
 
 .card-2 {
   flex: 1 1 33%;
-  min-width: 300px;
-  height: 400px;
+  min-width: 350px;
+  min-height: 200px;
 }
 
 .card-3 {
   flex: 1 1 50%;
-  min-width: 320px;
-  height: 460px;
+  min-width: 550px;
+  min-height: 400px;
 }
 
 .card-text {
@@ -111,7 +132,7 @@
 .value-text {
   font-family: var(--font-Main);
   font-size: var(--font-size-value);
-  color: #000000;
+  color: var(--color-Point2);
   text-align: center;
   margin: 10px;
 }
@@ -119,23 +140,25 @@
 .popular-dest-table {
   width: 100%;
   margin-top: 12px;
-  border-collapse: collapse;  
+  border-collapse: collapse;
   text-align: center;
   font-family: var(--font-Main);
   font-size: var(--font-size-SubTitle);
 }
 
+.popular-dest-table thead {
+  border-bottom: 1px solid var(--color-Point2);
+  font-weight: normal;
+}
+
 .popular-dest-table th {
   font-weight: normal;
-  background-color: var(--color-Point);
-  border-radius: 20px;
 }
 
 .popular-dest-table td {
   padding: 6px 0;
+  color: var(--color-Point2);
 }
-
-
 
 .inquiry-chart-container {
   position: relative;
@@ -145,21 +168,32 @@
   justify-content: center;
 }
 
+.inquiry-title {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-Main);
+  font-size: var(--font-size-Title);
+  z-index: 2;
+}
+
 .inquiry-total {
   position: absolute;
   top: 46%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 32px;
+  font-family: var(--font-Main);
+  font-size: var(--font-size-Title);
   font-weight: bold;
-  color: #000;
   z-index: 2;
 }
 
 .inquiry-legend {
   margin-top: 12px;
-  font-size: 14px;
-  text-align: left;
+  font-family: var(--font-Main);
+  font-size: var(--font-size-Body);
+  text-align: center;
 }
 
 .inquiry-legend div {
@@ -176,9 +210,9 @@
   margin-right: 8px;
 }
 
-
 /* -------------------------------------------------- */
 
+/* 회원 관리 */
 
 .user-table {
   width: 100%;
@@ -188,33 +222,48 @@
   overflow: hidden;
 }
 
+.user-table thead {
+  border-bottom: 1px solid var(--color-Point2);
+}
+
 .user-table th,
 .user-table td {
   padding: 16px;
   text-align: center;
   font-weight: normal;
-  border-bottom: 1px var(--color-Main);
   font-size: var(--font-size-SubTitle);
   font-family: var(--font-Main);
 }
 
+/* 이름 */
+.user-table th:nth-child(1),
+.user-table td:nth-child(1) {
+  width: 15%;
+}
+
+/* 가입일 */
+.user-table th:nth-child(2),
+.user-table td:nth-child(2) {
+  width: 20%;
+}
+
+/* 아이디 */
+.user-table th:nth-child(3),
+.user-table td:nth-child(3) {
+  width: 60%;
+}
+
+/* 정지, 탈퇴 버튼 */
 .user-table th:nth-child(4),
-.user-table td:nth-child(4) {
-  width: 30%;
+.user-table td:nth-child(4),
+.user-table th:nth-child(5),
+.user-table td:nth-child(5) {
+  width: 5%;
 }
-
-.user-table td button {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.user-table td button:hover {
-  transform: scale(1.2);
-}
-
 
 /* -------------------------------------------------- */
+
+/* 여행지 관리 */
 
 .place-table {
   width: 100%;
@@ -224,39 +273,52 @@
   overflow: hidden;
 }
 
+.place-table thead {
+  border-bottom: 1px solid var(--color-Point2);
+}
+
 .place-table th,
 .place-table td {
   padding: 16px;
   text-align: center;
   font-weight: normal;
-  border-bottom: 1px var(--color-Main);
   font-size: var(--font-size-SubTitle);
   font-family: var(--font-Main);
 }
 
-.place-table th:nth-child(2),
-.place-table td:nth-child(2) {
-  width: 30%;
+/* 여행지 번호 */
+.place-table th:nth-child(1),
+.place-table td:nth-child(1) {
+  width: 20%;
 }
 
+/* 장소 명 */
+.place-table th:nth-child(2),
+.place-table td:nth-child(2) {
+  width: 20%;
+}
+
+/* 주소 */
 .place-table th:nth-child(3),
 .place-table td:nth-child(3) {
   width: 35%;
 }
 
-.place-table td button {
-  background: none;
-  border: none;
-  cursor: pointer;
+/* 여행지 타입 */
+.place-table th:nth-child(4),
+.place-table td:nth-child(4) {
+  width: 20%;
 }
 
-.place-table td button:hover {
-  transform: scale(1.2);
+/* 삭제 버튼 */
+.place-table th:nth-child(5),
+.place-table td:nth-child(5) {
+  width: 5%;
 }
-
 
 /* -------------------------------------------------- */
 
+/* AI 관리 */
 
 .ai-tabs {
   display: flex;
@@ -280,19 +342,22 @@
 }
 
 .ai-table {
+  display: flex;
   width: 100%;
-  border-collapse: collapse;
   background-color: var(--color-Main);
+  border-collapse: collapse;
+  min-width: 800px;
+  min-height: 850px;
   border-radius: 0 0 12px 12px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: var(--font-Main);
   overflow: hidden;
 }
 
-.ai-table th,
-.ai-table td {
-  padding: 16px;
-  text-align: center;
+.ai-table th {
+  padding: 24px;
   font-weight: normal;
-  border-bottom: 1px var(--color-Main);
   font-size: var(--font-size-SubTitle);
   font-family: var(--font-Main);
 }
@@ -311,7 +376,6 @@
 .Ques-table td {
   padding: 16px;
   text-align: center;
-  border-bottom: 1px var(--color-Main);
   font-size: var(--font-size-SubTitle);
   font-family: var(--font-Main);
 }
@@ -336,9 +400,7 @@
   transform: scale(1.2);
 }
 
-
 /* -------------------------------------------------- */
-
 
 .ans-text {
   font-family: var(--font-Main);
@@ -353,5 +415,3 @@
   font-size: var(--font-size-Body);
   color: #000000;
 }
-
-

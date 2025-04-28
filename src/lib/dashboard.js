@@ -8,31 +8,26 @@ export async function getDashboard() {
       userStats: {
         totalUsers: 1200,
         newUsersLast7Days: 150,
-        roleDistribution: 1080,
-      },
-
-      courseStats: {
-        totalCourses: 3500,
-        newCoursesLast30Days: 200,
+        roleDistribution: 101,
       },
       inquiryStats: {
-        totalInquiries: 400,
-        unansweredInquiries: 12,
+        totalInquiries: 372,
+        unansweredInquiries: 9,
       },
       modelRates: {
         survey: [
-          { name: "survey01", rate: "4.7" },
-          { name: "survey02", rate: "4.8" },
-          { name: "survey03", rate: "3.9" },
-          { name: "survey04", rate: "4.2" },
-          { name: "survey05", rate: "4.3" },
+          { name: "survey01", rate: 4.7 },
+          { name: "survey02", rate: 1.8 },
+          { name: "survey03", rate: 2.9 },
+          { name: "survey04", rate: 0.8 },
+          { name: "survey05", rate: 3.3 },
         ],
         filtering: [
-          { name: "filtering01", rate: "4.7" },
-          { name: "filtering02", rate: "4.8" },
-          { name: "filtering03", rate: "3.9" },
-          { name: "filtering04", rate: "4.2" },
-          { name: "filtering05", rate: "4.3" },
+          { name: "filtering01", rate: 0.7 },
+          { name: "filtering02", rate: 2.8 },
+          { name: "filtering03", rate: 3.9 },
+          { name: "filtering04", rate: 4.2 },
+          { name: "filtering05", rate: 1.3 },
         ],
       },
       popularPlaces: [

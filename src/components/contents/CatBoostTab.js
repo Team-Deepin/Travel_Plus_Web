@@ -2,7 +2,7 @@
 
 const CatBoostTab = () => {
     return (
-      <div className="tab-panel">
+      <div>
         <table>
           <thead>
             <tr>

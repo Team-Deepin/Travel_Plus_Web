@@ -21,6 +21,10 @@ const menuItems = [
 ];
 
 const Sidebar = ({ activeKey, onSelect }) => {
+  const handleSelect = (key) => {
+    onSelect(key);
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar-logo">
@@ -32,8 +36,8 @@ const Sidebar = ({ activeKey, onSelect }) => {
         {menuItems.map((item) => (
           <div
             key={item.key}
-            className={`sidebar-item ${activeKey === item.key ? "active" : ""}`}
-            onClick={() => onSelect(item.key)}
+            className={`sidebar-item ${activeKey.startsWith(item.key) ? "active" : ""}`}
+            onClick={() => handleSelect(item.key)}
           >
             <img src={item.icon} alt={item.label} className="sidebar-icon" />
             <span className="sidebar-text">{item.label}</span>

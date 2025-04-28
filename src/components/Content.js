@@ -12,33 +12,36 @@ import "../styles/Web.css";
 
 const Content = () => {
   const [activeKey, setActiveKey] = useState("dashboard");
+  const [reloadToken, setReloadToken] = useState(Date.now());
   const [questionId, setQuestionId] = useState(null);
 
   const handleSelect = (key) => {
     setActiveKey(key);
+    setReloadToken(Date.now());
   };
 
   const renderContent = () => {
     switch (activeKey) {
       case "dashboard":
-        return <Dashboard />;
+        return <Dashboard key={reloadToken} />;
       case "users":
-        return <Users />;
+        return <Users key={reloadToken} />;
       case "places":
-        return <Places />;
+        return <Places key={reloadToken} />;
       case "AI":
-        return <AI />;
+        return <AI key={reloadToken} />;
       case "questions":
         return (
           <Questions
+            key={reloadToken}
             setActiveKey={setActiveKey}
             setQuestionId={setQuestionId}
           />
         );
       case "answer":
-        return <Answer questionId={questionId} />;
+        return <Answer key={reloadToken} questionId={questionId} />;
       default:
-        return <Dashboard />;
+        return <Dashboard key={reloadToken} />;
     }
   };
 

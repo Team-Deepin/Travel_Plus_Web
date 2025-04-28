@@ -47,13 +47,13 @@ const LoginForm = () => {
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="password"
           className="login-input"
           value={pw}
           onChange={(e) => setPw(e.target.value)}
         />
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="login-error">{error}</p>}
 
         <div className="login-button-container">
           <button type="submit" className="login-button">
