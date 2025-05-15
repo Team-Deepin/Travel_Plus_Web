@@ -19,7 +19,7 @@ import {
 
 const COLORS = ["var(--color-Point1)", "var(--color-Point2)"];
 
-const Dashboard = () => {
+const Dashboard = ({showModal}) => {
   const [totalUsers, setTotalusers] = useState(0);
   const [newUsersLast7Days, setNewUsersLast7Days] = useState(0);
   const [roleDistribution, setRoleDistribution] = useState(0);
@@ -34,6 +34,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchTodo = async () => {
+      try {
       const dashboard = await getDashboard();
       console.log("getDashboard:", dashboard);
       setTotalusers(dashboard.userStats.totalUsers);
@@ -49,6 +50,9 @@ const Dashboard = () => {
       });
       setSurveyRates(dashboard.modelRates.survey);
       setFilteringRates(dashboard.modelRates.filtering);
+      } catch {
+        showModal('네트워크 에러', '대시보드 데이터를 받아오는 데에 실패했습니다.');
+      }
     };
     fetchTodo();
   }, []);

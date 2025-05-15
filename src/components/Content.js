@@ -11,12 +11,30 @@ import Answer from "./contents/Answer";
 import Notices from "./contents/Notices";
 import NoticeCon from "./contents/NoticeCon";
 import "../styles/Web.css";
+import ErrorModal from "./ErrorModal";
 
 const Content = () => {
   const [activeKey, setActiveKey] = useState("dashboard");
   const [reloadToken, setReloadToken] = useState(Date.now());
   const [questionId, setQuestionId] = useState(null);
   const [noticeId, setNoticeId] = useState(null);
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    title: "",
+    content: "",
+    onClose: () => {},
+  })
+
+  const showModal = (title, content) => {
+    setModalState({
+      isOpen: true,
+      title: title,
+      content: content,
+      onClose: () => {
+        setModalState((prev) => ({...prev, isOpen: false}))
+      },
+    })
+  }
 
   const handleSelect = (key) => {
     setActiveKey(key);
@@ -26,7 +44,7 @@ const Content = () => {
   const renderContent = () => {
     switch (activeKey) {
       case "dashboard":
-        return <Dashboard key={reloadToken} />;
+        return <Dashboard key={reloadToken} showModal={showModal} />;
       case "users":
         return <Users key={reloadToken} />;
       case "places":
@@ -72,6 +90,7 @@ const Content = () => {
 
   return (
     <div className="content-wrapper">
+      {modalState.isOpen && <ErrorModal title={modalState.title} content={modalState.content} onClose={modalState.onClose} />}
       <Sidebar activeKey={activeKey} onSelect={handleSelect} />
       <main className="main-content">{renderContent()}</main>
     </div>
