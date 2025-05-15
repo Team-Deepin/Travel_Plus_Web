@@ -150,6 +150,9 @@ const Dashboard = () => {
               <XAxis dataKey="name" />
               <YAxis domain={[1, 5]} ticks={[0, 1, 2, 3, 4, 5]} />
               <Tooltip
+                cursor={{
+                  fill: "var(--color-Background2)"
+                }}
                 contentStyle={{
                   backgroundColor: "var(--color-Background)",
                   border: "1px solid #ddd",
@@ -173,6 +176,9 @@ const Dashboard = () => {
               <XAxis dataKey="name" />
               <YAxis domain={[1, 5]} ticks={[0, 1, 2, 3, 4, 5]} />
               <Tooltip
+                cursor={{
+                  fill: "var(--color-Background2)"
+                }}
                 contentStyle={{
                   backgroundColor: "var(--color-Background)",
                   border: "1px solid #ddd",

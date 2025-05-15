@@ -17,7 +17,7 @@ const menuItems = [
   { icon: mapIcon, label: "여행지 관리", key: "places" },
   { icon: AIIcon, label: "AI 관리", key: "AI" },
   { icon: contactIcon, label: "문의사항", key: "questions" },
-  { icon: noticeIcon, label: "공지사항", key: "notice" },
+  { icon: noticeIcon, label: "공지사항", key: "notices" },
 ];
 
 const Sidebar = ({ activeKey, onSelect }) => {

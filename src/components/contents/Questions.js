@@ -8,6 +8,8 @@ import { getQuestions } from "../../lib/questions";
 const Questions = ({ setActiveKey, setQuestionId }) => {
   const [questions, setQuestions] = useState([]);
   const [searchName, setSearchName] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const questionsPerPage = 10;
 
   // 문의사항 목록 불러오기
   const fetchQuestions = async () => {
@@ -45,8 +47,9 @@ const Questions = ({ setActiveKey, setQuestionId }) => {
       if (data) {
         const questionList = Object.values(data);
         const filteredQuestions = questionList.filter((question) =>
-          question.questionName.includes(searchName)
-        );                      
+          question.authorId.includes(searchName)
+        );
+
         if (filteredQuestions.length === 0) {
           alert("해당하는 문의사항이 없습니다.");
           setQuestions([]);
@@ -58,9 +61,16 @@ const Questions = ({ setActiveKey, setQuestionId }) => {
       }
     } catch (error) {}
   };
+
   useEffect(() => {
     fetchQuestions();
   }, []);
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   // 문의 클릭 시 답변창으로 이동
   const handleClick = (id) => {
@@ -73,9 +83,10 @@ const Questions = ({ setActiveKey, setQuestionId }) => {
       <div className="search">
         <input
           type="text"
-          placeholder="문의사항 검색"
+          placeholder="작성자 ID 검색"
           value={searchName}
           onChange={(e) => setSearchName(e.target.value)}
+          onKeyDown={handleKeyPress}
         />
         <button onClick={handleSearch}>🔍</button>
       </div>
@@ -89,20 +100,71 @@ const Questions = ({ setActiveKey, setQuestionId }) => {
           </tr>
         </thead>
         <tbody>
-          {questions.map((q) => (
-            <tr
-              key={q.questionId}
-              onClick={() => handleClick(q.questionId)}
-              style={{ cursor: "pointer" }}
-            >
-              <td>{q.questionId}</td>
-              <td>{q.title}</td>
-              <td>{q.writer}</td>
-              <td>{q.answered ? "답변 완료" : "미완료"}</td>
+          {questions.length === 0 ? (
+            <tr>
+              <td colSpan="4" style={{ textAlign: "center" }}>
+                표시할 문의사항이 없습니다.
+              </td>
             </tr>
-          ))}
+          ) : (
+            questions
+              .slice(
+                (currentPage - 1) * questionsPerPage,
+                currentPage * questionsPerPage
+              )
+
+              .map((question) => (
+                <tr
+                  key={question.inquireId}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.backgroundColor =
+                      "var(--color-Background2)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.backgroundColor = "")
+                  }
+                  onClick={() => handleClick(question.inquireId)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <td>{String(question.inquireId).padStart(8, "0")}</td>
+                  <td>{question.title}</td>
+                  <td>{question.authorId}</td>
+                  <td>{question.isAnswered ? "답변 완료" : "미완료"}</td>
+                </tr>
+              ))
+          )}
         </tbody>
       </table>
+      <div
+        style={{ marginTop: "auto", textAlign: "center", paddingTop: "20px" }}
+      >
+        {Array.from(
+          { length: Math.ceil(questions.length / questionsPerPage) },
+          (_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentPage(index + 1)}
+              style={{
+                margin: "0 5px",
+                padding: "8px 12px",
+                borderRadius: "6px",
+                border: "1px solid var(--color-Point2)",
+                backgroundColor:
+                  currentPage === index + 1
+                    ? "var(--color-Point1)"
+                    : "var(--color-Background)",
+                color:
+                  currentPage === index + 1
+                    ? "var(--color-Background)"
+                    : "var(--color-Point2)",
+                cursor: "pointer",
+              }}
+            >
+              {index + 1}
+            </button>
+          )
+        )}
+      </div>
     </div>
   );
 };

@@ -1,22 +1,38 @@
 // Answer.js
 
+import React, { useEffect, useState, useRef } from "react";
+import "../../styles/Web.css";
+import axios from "axios";
+import { getQuestions } from "../../lib/questions";
 
-import React, { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
-import '../../styles/Web.css';
-
-const Answer = ({ questionId }) => {
+const Answer = ({ questionId, setActiveKey }) => {
   const [question, setQuestion] = useState(null);
-  const [answer, setAnswer] = useState('');
+  const [answer, setAnswer] = useState("");
   const textareaRef = useRef(null);
 
   useEffect(() => {
     const fetchQuestion = async () => {
       try {
-        const res = await axios.get(`/admin/questions/${questionId}`);
-        setQuestion(res.data);
+        // const res = await axios.get(`/admin/questions/${questionId}`);
+        // setQuestion(res.data);
+        const data = await getQuestions();
+        if (data) {
+          const questionList = Object.values(data);
+
+          const foundQuestion = questionList.find(
+            (q) => q.inquireId === questionId
+          );
+
+          if (foundQuestion) {
+            setQuestion(foundQuestion);
+          } else {
+            alert("해당 문의를 찾을 수 없습니다.");
+          }
+        } else {
+          alert("답변 창을 불러오는 데 실패했습니다.");
+        }
       } catch (error) {
-        console.error('문의사항 불러오기 실패:', error);
+        alert("답변 창을 불러오는 데 실패했습니다.");
       }
     };
 
@@ -25,9 +41,20 @@ const Answer = ({ questionId }) => {
 
   const handleInput = (e) => {
     const textarea = textareaRef.current;
-    textarea.style.height = 'auto';
+    textarea.style.height = "auto";
     textarea.style.height = `${textarea.scrollHeight}px`;
     setAnswer(e.target.value);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      // await axios.post(`/admin/questions/${questionId}/answer`, { answer });
+
+      alert("답변이 등록되었습니다.");
+      setActiveKey("questions");
+    } catch (error) {
+      alert("답변 등록에 실패했습니다.");
+    }
   };
 
   if (!question) return <div>불러오는 중...</div>;
@@ -35,10 +62,15 @@ const Answer = ({ questionId }) => {
   return (
     <div className="container">
       <h2>문의사항 답변</h2>
-      <p><strong>문의 ID:</strong> {question.questionId}</p>
-      <p><strong>제목:</strong> {question.title}</p>
-      <p><strong>내용:</strong> {question.content}</p>
-      <p><strong>작성자:</strong> {question.writer}</p>
+      <p>
+        <strong>문의 ID:</strong> {question.inquireId}
+      </p>
+      <p>
+        <strong>제목:</strong> {question.title}
+      </p>
+      <p>
+        <strong>내용:</strong> {question.contents}
+      </p>
 
       <textarea
         className="ans-text-box"
@@ -47,16 +79,15 @@ const Answer = ({ questionId }) => {
         value={answer}
         onChange={handleInput}
         rows={1}
-        style={{ overflow: 'hidden' }}
+        style={{ overflow: "hidden" }}
       />
       <br />
-      <button className="login-button">답변 등록</button>
+      <button className="login-button" onClick={handleSubmit}>답변 등록</button>
     </div>
   );
 };
 
 export default Answer;
-
 
 /*
 

@@ -64,10 +64,6 @@ const Places = () => {
     }
   };
 
-  useEffect(() => {
-    fetchPlaces();
-  }, []);
-
   // 여행지 삭제
   const handleDelete = async (placeId) => {
     const confirmed = window.confirm("정말 이 여행지를 삭제하시겠습니까?");

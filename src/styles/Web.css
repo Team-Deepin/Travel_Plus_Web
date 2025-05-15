@@ -364,6 +364,8 @@
 
 /* -------------------------------------------------- */
 
+/* 문의사항 */
+
 .Ques-table {
   width: 100%;
   border-collapse: collapse;
@@ -372,32 +374,106 @@
   overflow: hidden;
 }
 
+.Ques-table thead {
+  border-bottom: 1px solid var(--color-Point2);
+}
+
 .Ques-table th,
 .Ques-table td {
   padding: 16px;
   text-align: center;
+  font-weight: normal;
   font-size: var(--font-size-SubTitle);
   font-family: var(--font-Main);
 }
 
-.Ques-table th {
-  background-color: var(--color-Main);
-  font-weight: normal;
+/* 문의사항 번호 */
+.Ques-table th:nth-child(1),
+.Ques-table td:nth-child(1) {
+  width: 20%;
 }
 
+/* 제목 */
 .Ques-table th:nth-child(2),
 .Ques-table td:nth-child(2) {
   width: 30%;
 }
 
-.Ques-table td button {
-  background: none;
-  border: none;
-  cursor: pointer;
+/* 작성자 ID */
+.Ques-table th:nth-child(3),
+.Ques-table td:nth-child(3) {
+  width: 40%;
 }
 
-.Ques-table td button:hover {
-  transform: scale(1.2);
+/* 답변 여부 */
+.Ques-table th:nth-child(4),
+.Ques-table td:nth-child(4) {
+  width: 10%;
+}
+
+/* -------------------------------------------------- */
+
+.ans-text {
+  font-family: var(--font-Main);
+  font-size: var(--font-size-SubTitle);
+  color: #000000;
+}
+
+.ans-text-box {
+  width: 100%;
+  resize: none;
+  font-family: var(--font-Main);
+  font-size: var(--font-size-Body);
+  color: #000000;
+}
+
+/* -------------------------------------------------- */
+
+/* 공지사항 */
+
+.Noti-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--color-Main);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.Noti-table thead {
+  border-bottom: 1px solid var(--color-Point2);
+}
+
+.Noti-table th,
+.Noti-table td {
+  padding: 16px;
+  text-align: center;
+  font-weight: normal;
+  font-size: var(--font-size-SubTitle);
+  font-family: var(--font-Main);
+}
+
+/* 공지사항 번호 */
+.Noti-table th:nth-child(1),
+.Noti-table td:nth-child(1) {
+  width: 20%;
+}
+
+/* 제목 */
+.Noti-table th:nth-child(2),
+.Noti-table td:nth-child(2) {
+  width: 30%;
+}
+
+/* 게시일 */
+.Noti-table th:nth-child(3),
+.Noti-table td:nth-child(3) {
+  width: 40%;
+}
+
+/* 게시 여부 */
+.Noti-table th:nth-child(4),
+.Noti-table td:nth-child(4) {
+  width: 10%;
 }
 
 /* -------------------------------------------------- */

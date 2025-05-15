@@ -8,12 +8,15 @@ import Places from "./contents/Places";
 import AI from "./contents/AI";
 import Questions from "./contents/Questions";
 import Answer from "./contents/Answer";
+import Notices from "./contents/Notices";
+import NoticeCon from "./contents/NoticeCon";
 import "../styles/Web.css";
 
 const Content = () => {
   const [activeKey, setActiveKey] = useState("dashboard");
   const [reloadToken, setReloadToken] = useState(Date.now());
   const [questionId, setQuestionId] = useState(null);
+  const [noticeId, setNoticeId] = useState(null);
 
   const handleSelect = (key) => {
     setActiveKey(key);
@@ -39,7 +42,29 @@ const Content = () => {
           />
         );
       case "answer":
-        return <Answer key={reloadToken} questionId={questionId} />;
+        return (
+          <Answer
+            key={reloadToken}
+            questionId={questionId}
+            setActiveKey={setActiveKey}
+          />
+        );
+      case "notices":
+        return (
+          <Notices
+            key={reloadToken}
+            setActiveKey={setActiveKey}
+            setNoticeId={setNoticeId}
+          />
+        );
+      case "noticeCon":
+        return (
+          <NoticeCon
+            key={reloadToken}
+            noticeId={noticeId}
+            setActiveKey={setActiveKey}
+          />
+        );
       default:
         return <Dashboard key={reloadToken} />;
     }
