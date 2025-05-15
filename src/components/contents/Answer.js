@@ -7,6 +7,7 @@ import { getQuestions } from "../../lib/questions";
 
 const Answer = ({ questionId, setActiveKey }) => {
   const [question, setQuestion] = useState(null);
+  const [title, setTitle] = useState("");
   const [answer, setAnswer] = useState("");
   const textareaRef = useRef(null);
 
@@ -25,6 +26,8 @@ const Answer = ({ questionId, setActiveKey }) => {
 
           if (foundQuestion) {
             setQuestion(foundQuestion);
+            setTitle(foundQuestion.title);
+            setAnswer(foundQuestion.answer || "");
           } else {
             alert("해당 문의를 찾을 수 없습니다.");
           }
@@ -32,19 +35,12 @@ const Answer = ({ questionId, setActiveKey }) => {
           alert("답변 창을 불러오는 데 실패했습니다.");
         }
       } catch (error) {
-        alert("답변 창을 불러오는 데 실패했습니다.");
+        alert("답변 창을 불러오는 데 오류가 발생했습니다.");
       }
     };
 
     if (questionId) fetchQuestion();
   }, [questionId]);
-
-  const handleInput = (e) => {
-    const textarea = textareaRef.current;
-    textarea.style.height = "auto";
-    textarea.style.height = `${textarea.scrollHeight}px`;
-    setAnswer(e.target.value);
-  };
 
   const handleSubmit = async () => {
     try {
@@ -63,7 +59,7 @@ const Answer = ({ questionId, setActiveKey }) => {
     <div className="container">
       <h2>문의사항 답변</h2>
       <p>
-        <strong>문의 ID:</strong> {question.inquireId}
+        <strong>문의 ID:</strong> {String(question.inquireId).padStart(8, "0")}
       </p>
       <p>
         <strong>제목:</strong> {question.title}
@@ -71,18 +67,17 @@ const Answer = ({ questionId, setActiveKey }) => {
       <p>
         <strong>내용:</strong> {question.contents}
       </p>
-
       <textarea
         className="ans-text-box"
         placeholder="답변을 입력하세요"
         ref={textareaRef}
         value={answer}
-        onChange={handleInput}
-        rows={1}
-        style={{ overflow: "hidden" }}
+        onChange={(e) => setAnswer(e.target.value)}
       />
       <br />
-      <button className="login-button" onClick={handleSubmit}>답변 등록</button>
+      <button className="login-button" onClick={handleSubmit}>
+        답변 등록
+      </button>
     </div>
   );
 };

@@ -65,6 +65,45 @@
   transform: scale(1.2);
 }
 
+.login-button {
+  padding: 10px 20px;
+  max-width: 200px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  background-color: var(--color-Point1);
+  color: #fff;
+  font-size: var(--font-size-Body);
+  font-family: var(--font-Main);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pagination {
+  margin-top: auto;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.pagination-button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--color-Point2);
+  background-color: var(--color-Background);
+  color: var(--color-Point2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pagination-button:hover {
+  background-color: var(--color-Background2);
+}
+
+.pagination-button.active {
+  background-color: var(--color-Point1);
+  color: var(--color-Background);
+}
+
 /* -------------------------------------------------- */
 
 /* 대시보드 */
@@ -235,6 +274,12 @@
   font-family: var(--font-Main);
 }
 
+.user-table tbody tr:hover {
+  background-color: var(--color-Background2);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
 /* 이름 */
 .user-table th:nth-child(1),
 .user-table td:nth-child(1) {
@@ -284,6 +329,12 @@
   font-weight: normal;
   font-size: var(--font-size-SubTitle);
   font-family: var(--font-Main);
+}
+
+.place-table tbody tr:hover {
+  background-color: var(--color-Background2);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 /* 여행지 번호 */
@@ -387,6 +438,12 @@
   font-family: var(--font-Main);
 }
 
+.Ques-table tbody tr:hover {
+  background-color: var(--color-Background2);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
 /* 문의사항 번호 */
 .Ques-table th:nth-child(1),
 .Ques-table td:nth-child(1) {
@@ -413,6 +470,8 @@
 
 /* -------------------------------------------------- */
 
+/* 문의사항 답변 */
+
 .ans-text {
   font-family: var(--font-Main);
   font-size: var(--font-size-SubTitle);
@@ -421,10 +480,18 @@
 
 .ans-text-box {
   width: 100%;
+  min-height: 300px;
   resize: none;
   font-family: var(--font-Main);
   font-size: var(--font-size-Body);
   color: #000000;
+  padding: 12px;
+  line-height: 1.5;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 
 /* -------------------------------------------------- */
@@ -452,6 +519,12 @@
   font-family: var(--font-Main);
 }
 
+.Noti-table tbody tr:hover {
+  background-color: var(--color-Background2);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
 /* 공지사항 번호 */
 .Noti-table th:nth-child(1),
 .Noti-table td:nth-child(1) {
@@ -461,13 +534,13 @@
 /* 제목 */
 .Noti-table th:nth-child(2),
 .Noti-table td:nth-child(2) {
-  width: 30%;
+  width: 35%;
 }
 
 /* 게시일 */
 .Noti-table th:nth-child(3),
 .Noti-table td:nth-child(3) {
-  width: 40%;
+  width: 30%;
 }
 
 /* 게시 여부 */
@@ -476,18 +549,33 @@
   width: 10%;
 }
 
+/* 공지사항 삭제 */
+.Noti-table th:nth-child(5),
+.Noti-table td:nth-child(5) {
+  width: 5%;
+}
+
 /* -------------------------------------------------- */
 
-.ans-text {
+/* 공지사항 수정 */
+
+.notiCon-text {
   font-family: var(--font-Main);
   font-size: var(--font-size-SubTitle);
   color: #000000;
 }
 
-.ans-text-box {
+.notiCon-text-box {
   width: 100%;
-  resize: none;
+  min-height: 120px;
+  resize: vertical;
   font-family: var(--font-Main);
   font-size: var(--font-size-Body);
   color: #000000;
+  padding: 12px;
+  line-height: 1.5;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  box-sizing: border-box;
 }

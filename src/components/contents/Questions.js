@@ -116,15 +116,7 @@ const Questions = ({ setActiveKey, setQuestionId }) => {
               .map((question) => (
                 <tr
                   key={question.inquireId}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.backgroundColor =
-                      "var(--color-Background2)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.backgroundColor = "")
-                  }
                   onClick={() => handleClick(question.inquireId)}
-                  style={{ cursor: "pointer" }}
                 >
                   <td>{String(question.inquireId).padStart(8, "0")}</td>
                   <td>{question.title}</td>
@@ -135,30 +127,16 @@ const Questions = ({ setActiveKey, setQuestionId }) => {
           )}
         </tbody>
       </table>
-      <div
-        style={{ marginTop: "auto", textAlign: "center", paddingTop: "20px" }}
-      >
+      <div className="pagination">
         {Array.from(
           { length: Math.ceil(questions.length / questionsPerPage) },
           (_, index) => (
             <button
               key={index}
               onClick={() => setCurrentPage(index + 1)}
-              style={{
-                margin: "0 5px",
-                padding: "8px 12px",
-                borderRadius: "6px",
-                border: "1px solid var(--color-Point2)",
-                backgroundColor:
-                  currentPage === index + 1
-                    ? "var(--color-Point1)"
-                    : "var(--color-Background)",
-                color:
-                  currentPage === index + 1
-                    ? "var(--color-Background)"
-                    : "var(--color-Point2)",
-                cursor: "pointer",
-              }}
+              className={`pagination-button ${
+                currentPage === index + 1 ? "active" : ""
+              }`}
             >
               {index + 1}
             </button>

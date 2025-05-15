@@ -1,5 +1,9 @@
+import api from "./api";
+
 export async function getPlaces() {
     try {
+    // const { data } = await api.get(`/todos/${id}`)
+    // return data
       return {
         place1: {
           placeId: 1,
