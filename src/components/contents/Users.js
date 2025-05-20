@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import "../../styles/Web.css";
-import axios from "axios";
-import { getUsers } from "../../lib/users";
+import { deactiveUser, deleteUser, getUsers, queryUser } from "../../lib/users";
 
 // 가입일 포맷 함수
 const formatDate = (dateString) => {
@@ -14,7 +13,7 @@ const formatDate = (dateString) => {
   return `${year}/${month}/${day}`;
 };
 
-const User = () => {
+const User = ({showModal}) => {
   const [users, setUsers] = useState([]);
   const [searchName, setSearchName] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,17 +22,11 @@ const User = () => {
   // 회원 목록 불러오기
   const fetchUsers = async () => {
     try {
-      // const res = await axios.get("/admin/users");
-      // setUsers(res.data);
       const data = await getUsers();
-      if (data) {
-        const userList = Object.values(data);
-        setUsers(userList);
-      } else {
-        alert("회원 목록을 불러오는 데 실패했습니다.");
-      }
+      if (Array.isArray(data) && data.length > 0) setUsers(data);
+      else setUsers([]);
     } catch (error) {
-      alert("회원 목록을 불러오는 데 실패했습니다.");
+      showModal("회원 목록 조회에 실패했습니다.");
     }
   };
 
@@ -45,67 +38,22 @@ const User = () => {
     }
 
     try {
-      // const res = await axios.get(`/admin/inquire/${searchName}`);
-      // if (!res.data || (Array.isArray(res.data) && res.data.length === 0)) {
-      //   alert("해당하는 회원이 없습니다.");
-      //   setUsers([]);
-      // } else {
-      //   setUsers([res.data]);
-      // }
-      const data = await getUsers();
-      if (data) {
-        const userList = Object.values(data);
-        const filteredUsers = userList.filter((user) =>
-          user.userName.includes(searchName)
-        );
-
-        if (filteredUsers.length === 0) {
-          alert("해당하는 회원이 없습니다.");
-          setUsers([]);
-        } else {
-          setUsers(filteredUsers);
-        }
-      } else {
-        alert("검색에 실패했습니다.");
-      }
+      const data = await queryUser(searchName.trim());
+      if (Array.isArray(data) && data.length > 0) setUsers(data);
+      else setUsers([]);
     } catch (error) {
-      alert("검색에 실패했습니다.");
+      showModal("회원 검색에 실패했습니다.");
+      fetchUsers();
     }
   };
 
-  // 정지/정지해제 처리
-  // const handleDeactivate = async (userId) => {
-  //   try {
-  //     const res = await axios.post(`/admin/users/deactive/${userId}`);
-
-  //     if (res.data.isSuspended) {
-  //       alert("해당 유저를 정지시켰습니다.");
-  //     } else {
-  //       alert("해당 유저의 정지가 해제되었습니다.");
-  //     }
-
-  //     fetchUsers();
-  //   } catch (error) {
-  //     alert("정지 처리에 실패했습니다.");
-  //     console.error(error);
-  //   }
-  // };
-
   const handleDeactivate = (userId) => {
-    const updatedUsers = users.map((user) => {
-      if (user.userId === userId) {
-        if (user.isSuspended) {
-          alert("정지 해제되었습니다.");
-        } else {
-          alert("정지시켰습니다.");
-        }
-        const updatedUser = { ...user, isSuspended: !user.isSuspended };
-        return updatedUser;
-      }
-      return user;
-    });
-
-    setUsers(updatedUsers);
+    try {
+      deactiveUser(userId);
+      fetchUsers();
+    } catch (error) {
+      showModal("회원 정지에 실패했습니다.");
+    }
   };
 
   // 회원 탈퇴 처리
@@ -114,11 +62,10 @@ const User = () => {
     if (!confirmed) return;
 
     try {
-      // await axios.delete(`/admin/users/delete/${userId}`);
-      alert("해당 유저를 탈퇴했습니다.");
+      await deleteUser(userId);
       fetchUsers();
     } catch (error) {
-      alert("탈퇴 처리에 실패했습니다.");
+      showModal("회원 탈퇴에 실패했습니다.");
     }
   };
 
@@ -171,7 +118,7 @@ const User = () => {
               .map((user) => (
                 <tr key={user.userId}>
                   <td>{user.userName}</td>
-                  <td>{formatDate(user.createDate)}</td>
+                  <td>{formatDate(user.createdDate)}</td>
                   <td>{user.userId}</td>
                   <td>
                     <button

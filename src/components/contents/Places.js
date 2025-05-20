@@ -2,65 +2,21 @@
 
 import React, { useEffect, useState } from "react";
 import "../../styles/Web.css";
-import axios from "axios";
-import { getPlaces } from "../../lib/places";
+import { deletePlace, getPlaces } from "../../lib/places";
 
-const Places = () => {
+const Places = ({showModal}) => {
   const [places, setPlaces] = useState([]);
-  const [searchName, setSearchName] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const placesPerPage = 10;
 
   // 여행지 목록 불러오기
   const fetchPlaces = async () => {
     try {
-      // const res = await axios.get("/admin/places");
-      // setPlaces(res.data);
       const data = await getPlaces();
-      if (data) {
-        const placeList = Object.values(data);
-        setPlaces(placeList);
-      } else {
-        alert("여행지 목록을 불러오는 데 실패했습니다.");
-      }
+      if (Array.isArray(data) && data.length > 0) setPlaces(data);
+      else setPlaces([]);
     } catch (error) {
-      alert("여행지 목록을 불러오는 데 실패했습니다.");
-    }
-  };
-
-  // 여행지 검색
-  const handleSearch = async () => {
-    if (!searchName.trim()) {
-      fetchPlaces();
-      return;
-    }
-
-    try {
-      // const res = await axios.get(`/admin/places/search?name=${searchName}`);
-      // if (!res.data || (Array.isArray(res.data) && res.data.length === 0)) {
-      //   alert("해당하는 여행지가 없습니다.");
-      //   setPlaces([]);
-      // } else {
-      //   setPlaces([res.data]);
-      // }
-      const data = await getPlaces();
-      if (data) {
-        const placeList = Object.values(data);
-        const filteredPlaces = placeList.filter((place) =>
-          place.placeName.includes(searchName)
-        );
-
-        if (filteredPlaces.length === 0) {
-          alert("해당하는 여행지가 없습니다.");
-          setPlaces([]);
-        } else {
-          setPlaces(filteredPlaces);
-        }
-      } else {
-        alert("검색에 실패했습니다.");
-      }
-    } catch (error) {
-      alert("검색에 실패했습니다.");
+      showModal("여행지 목록 조회에 실패했습니다.");
     }
   };
 
@@ -70,11 +26,10 @@ const Places = () => {
     if (!confirmed) return;
 
     try {
-      // await axios.delete(`/admin/places/${placeId}`);
-      alert("해당 여행지를 삭제했습니다.");
+      await deletePlace(placeId);
       fetchPlaces();
     } catch (error) {
-      alert("삭제 처리에 실패했습니다.");
+      showModal("여행지 삭제에 실패했습니다.");
     }
   };
 
@@ -82,24 +37,8 @@ const Places = () => {
     fetchPlaces();
   }, []);
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
-  };
-
   return (
     <div className="container">
-      <div className="search">
-        <input
-          type="text"
-          placeholder="장소 검색"
-          value={searchName}
-          onChange={(e) => setSearchName(e.target.value)}
-          onKeyDown={handleKeyPress}
-        />
-        <button onClick={handleSearch}>🔍</button>
-      </div>
 
       <table className="place-table">
         <thead>
@@ -126,16 +65,16 @@ const Places = () => {
               )
 
               .map((place) => (
-                <tr key={place.placeId}>
-                  <td>{String(place.placeId).padStart(8, "0")}</td>
+                <tr key={place.courseDetailId}>
+                  <td>{String(place.courseDetailId).padStart(8, "0")}</td>
                   <td>{place.placeName}</td>
-                  <td>{place.placeLocation}</td>
+                  <td>{place.placeAddress}</td>
                   <td>{place.placeType}</td>
                   <td>
                     <button
                       className="X"
                       title="삭제"
-                      onClick={() => handleDelete(place.placeId)}
+                      onClick={() => handleDelete(place.courseDetailId)}
                     >
                       ❌
                     </button>

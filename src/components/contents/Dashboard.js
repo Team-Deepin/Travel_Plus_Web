@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import "../../styles/Web.css";
-import axios from 'axios';
 import { getDashboard } from "../../lib/dashboard";
 
 import {
@@ -21,40 +20,38 @@ const COLORS = ["var(--color-Point1)", "var(--color-Point2)"];
 
 const Dashboard = ({showModal}) => {
   const [totalUsers, setTotalusers] = useState(0);
-  const [newUsersLast7Days, setNewUsersLast7Days] = useState(0);
-  const [roleDistribution, setRoleDistribution] = useState(0);
+  const [newUsers, setNewUsers] = useState(0);
+  const [currentUser, setCurrentUser] = useState(0);
   const [popularPlaces, setPopularPlaces] = useState([]);
   const [inquiryStats, setInquiryStats] = useState({
     totalInquiries: 0,
     unansweredInquiries: 0,
     answeredInquiries: 0,
   });
-  const [surveyRates, setSurveyRates] = useState([]);
-  const [filteringRates, setFilteringRates] = useState([]);
+  const [contentRates, setContentRates] = useState([]);
+  const [cooperationRates, setCooperationRates] = useState([]);
 
   useEffect(() => {
-    const fetchTodo = async () => {
+    const fetchDashboard = async () => {
       try {
-      const dashboard = await getDashboard();
-      console.log("getDashboard:", dashboard);
-      setTotalusers(dashboard.userStats.totalUsers);
-      setNewUsersLast7Days(dashboard.userStats.newUsersLast7Days);
-      setRoleDistribution(dashboard.userStats.roleDistribution);
-      setPopularPlaces(dashboard.popularPlaces);
-      setInquiryStats({
-        totalInquiries: dashboard.inquiryStats.totalInquiries,
-        unansweredInquiries: dashboard.inquiryStats.unansweredInquiries,
-        answeredInquiries:
-          dashboard.inquiryStats.totalInquiries -
-          dashboard.inquiryStats.unansweredInquiries,
-      });
-      setSurveyRates(dashboard.modelRates.survey);
-      setFilteringRates(dashboard.modelRates.filtering);
+        const dashboard = await getDashboard();
+        setTotalusers(dashboard.totalUsers);
+        setNewUsers(dashboard.newUsers);
+        setCurrentUser(dashboard.currentUser);
+        setPopularPlaces(dashboard.popularPlace);
+        setInquiryStats({
+          totalInquiries: dashboard.totalInquire,
+          answeredInquiries: dashboard.AnsweredInquire,
+          unansweredInquiries:
+            dashboard.totalInquire - dashboard.AnsweredInquire,
+        });
+        setContentRates(dashboard.content);
+        setCooperationRates(dashboard.cooperation);
       } catch {
-        showModal('네트워크 에러', '대시보드 데이터를 받아오는 데에 실패했습니다.');
+        showModal("대시보드 조회에 실패했습니다.");
       }
     };
-    fetchTodo();
+    fetchDashboard();
   }, []);
 
   const inquiryData = [
@@ -74,7 +71,7 @@ const Dashboard = ({showModal}) => {
           {/* 현재 접속자 */}
           <div className="card card-1">
             <p className="card-text">현재 접속자</p>
-            <p className="value-text">{roleDistribution}</p>
+            <p className="value-text">{currentUser}</p>
           </div>
         </div>
 
@@ -82,7 +79,7 @@ const Dashboard = ({showModal}) => {
           {/* 신규 가입자 */}
           <div className="card card-1">
             <p className="card-text">7일 이내 신규 가입자</p>
-            <p className="value-text">{newUsersLast7Days}</p>
+            <p className="value-text">{newUsers}</p>
           </div>
           {/* 인기 여행지 */}
           <div className="card card-1">
@@ -148,11 +145,11 @@ const Dashboard = ({showModal}) => {
       {/* AI 만족도 */}
       <div className="card-row">
         <div className="card card-3">
-          <p className="card-text">CatBoost</p>
+          <p className="card-text">컨텐츠 기반</p>
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={surveyRates}>
-              <XAxis dataKey="name" />
-              <YAxis domain={[1, 5]} ticks={[0, 1, 2, 3, 4, 5]} />
+            <BarChart data={contentRates}>
+              <XAxis dataKey="modelName" />
+              <YAxis domain={[0, 'auto']} tickCount={6} />
               <Tooltip
                 cursor={{
                   fill: "var(--color-Background2)"
@@ -164,7 +161,7 @@ const Dashboard = ({showModal}) => {
                 }}
               />
               <Bar
-                dataKey="rate"
+                dataKey="averageRating"
                 fill="var(--color-Point1)"
                 radius={[10, 10, 0, 0]}
                 barSize={70}
@@ -174,11 +171,11 @@ const Dashboard = ({showModal}) => {
           </ResponsiveContainer>
         </div>
         <div className="card card-3">
-          <p className="card-text">Factorization</p>
+          <p className="card-text">협업</p>
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={filteringRates}>
-              <XAxis dataKey="name" />
-              <YAxis domain={[1, 5]} ticks={[0, 1, 2, 3, 4, 5]} />
+            <BarChart data={cooperationRates}>
+              <XAxis dataKey="modelName" />
+              <YAxis domain={[0, 'auto']} tickCount={6} />
               <Tooltip
                 cursor={{
                   fill: "var(--color-Background2)"
@@ -190,7 +187,7 @@ const Dashboard = ({showModal}) => {
                 }}
               />
               <Bar
-                dataKey="rate"
+                dataKey="averageRating"
                 fill="var(--color-Point2)"
                 radius={[10, 10, 0, 0]}
                 barSize={70}

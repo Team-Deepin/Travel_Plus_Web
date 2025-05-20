@@ -11,7 +11,7 @@ import Answer from "./contents/Answer";
 import Notices from "./contents/Notices";
 import NoticeCon from "./contents/NoticeCon";
 import "../styles/Web.css";
-import ErrorModal from "./ErrorModal";
+import Modal from "./Modal";
 
 const Content = () => {
   const [activeKey, setActiveKey] = useState("dashboard");
@@ -20,15 +20,13 @@ const Content = () => {
   const [noticeId, setNoticeId] = useState(null);
   const [modalState, setModalState] = useState({
     isOpen: false,
-    title: "",
     content: "",
     onClose: () => {},
   })
 
-  const showModal = (title, content) => {
+  const showModal = (content) => {
     setModalState({
       isOpen: true,
-      title: title,
       content: content,
       onClose: () => {
         setModalState((prev) => ({...prev, isOpen: false}))
@@ -46,17 +44,18 @@ const Content = () => {
       case "dashboard":
         return <Dashboard key={reloadToken} showModal={showModal} />;
       case "users":
-        return <Users key={reloadToken} />;
+        return <Users key={reloadToken} showModal={showModal} />;
       case "places":
-        return <Places key={reloadToken} />;
+        return <Places key={reloadToken} showModal={showModal} />;
       case "AI":
-        return <AI key={reloadToken} />;
+        return <AI key={reloadToken} showModal={showModal} />;
       case "questions":
         return (
           <Questions
             key={reloadToken}
             setActiveKey={setActiveKey}
             setQuestionId={setQuestionId}
+            showModal={showModal}
           />
         );
       case "answer":
@@ -65,6 +64,7 @@ const Content = () => {
             key={reloadToken}
             questionId={questionId}
             setActiveKey={setActiveKey}
+            showModal={showModal}
           />
         );
       case "notices":
@@ -73,6 +73,7 @@ const Content = () => {
             key={reloadToken}
             setActiveKey={setActiveKey}
             setNoticeId={setNoticeId}
+            showModal={showModal}
           />
         );
       case "noticeCon":
@@ -81,16 +82,17 @@ const Content = () => {
             key={reloadToken}
             noticeId={noticeId}
             setActiveKey={setActiveKey}
+            showModal={showModal}
           />
         );
       default:
-        return <Dashboard key={reloadToken} />;
+        return <Dashboard key={reloadToken} showModal={showModal} />;
     }
   };
 
   return (
     <div className="content-wrapper">
-      {modalState.isOpen && <ErrorModal title={modalState.title} content={modalState.content} onClose={modalState.onClose} />}
+      {modalState.isOpen && <Modal content={modalState.content} onClose={modalState.onClose} />}
       <Sidebar activeKey={activeKey} onSelect={handleSelect} />
       <main className="main-content">{renderContent()}</main>
     </div>

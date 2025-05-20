@@ -5,7 +5,7 @@ import "../../styles/Web.css";
 import CatBoostTab from "./CatBoostTab.js";
 import FactorizationTab from "./FactorizationTab.js";
 
-const AI = () => {
+const AI = ({showModal}) => {
   const [activeTab, setActiveTab] = useState("CatBoost");
 
   return (
