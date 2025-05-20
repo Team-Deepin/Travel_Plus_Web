@@ -23,7 +23,9 @@ const User = ({showModal}) => {
   const fetchUsers = async () => {
     try {
       const data = await getUsers();
-      if (Array.isArray(data) && data.length > 0) setUsers(data);
+      if (!Array.isArray(data)) throw new Error();
+
+      if (data.length > 0) setUsers(data);
       else setUsers([]);
     } catch (error) {
       showModal("회원 목록 조회에 실패했습니다.");
@@ -39,7 +41,9 @@ const User = ({showModal}) => {
 
     try {
       const data = await queryUser(searchName.trim());
-      if (Array.isArray(data) && data.length > 0) setUsers(data);
+      if (!Array.isArray(data)) throw new Error();
+
+      if (data.length > 0) setUsers(data);
       else setUsers([]);
     } catch (error) {
       showModal("회원 검색에 실패했습니다.");

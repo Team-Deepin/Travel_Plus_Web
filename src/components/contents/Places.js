@@ -13,7 +13,9 @@ const Places = ({showModal}) => {
   const fetchPlaces = async () => {
     try {
       const data = await getPlaces();
-      if (Array.isArray(data) && data.length > 0) setPlaces(data);
+      if (!Array.isArray(data)) throw new Error();
+      
+      if (data.length > 0) setPlaces(data);
       else setPlaces([]);
     } catch (error) {
       showModal("여행지 목록 조회에 실패했습니다.");

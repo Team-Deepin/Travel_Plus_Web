@@ -14,7 +14,9 @@ const Questions = ({ setActiveKey, setQuestionId, showModal }) => {
   const fetchQuestions = async () => {
     try {
       const data = await getQuestions();
-      if (Array.isArray(data) && data.length > 0) setQuestions(data);
+      if (!Array.isArray(data)) throw new Error();
+      
+      if (data.length > 0) setQuestions(data);
       else setQuestions([]);
     } catch (error) {
       showModal("문의사항 목록 조회에 실패했습니다.");
@@ -30,7 +32,9 @@ const Questions = ({ setActiveKey, setQuestionId, showModal }) => {
 
     try {
       const data = await queryQuestion(searchName.trim());
-      if (Array.isArray(data) && data.length > 0) setQuestions(data);
+      if (!Array.isArray(data)) throw new Error();
+
+      if (data.length > 0) setQuestions(data);
       else setQuestions([]);
     } catch (error) {
       showModal("문의사항 검색에 실패했습니다.");

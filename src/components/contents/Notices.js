@@ -14,7 +14,9 @@ const Notices = ({ setActiveKey, setNoticeId, showModal }) => {
   const fetchNotices = async () => {
     try {
       const data = await getNotices();
-      if (Array.isArray(data) && data.length > 0) setNotices(data);
+      if (!Array.isArray(data)) throw new Error();
+      
+      if (data.length > 0) setNotices(data);
       else setNotices([]);
     } catch (error) {
       showModal("공지사항 목록 조회에 실패했습니다.");
@@ -30,7 +32,9 @@ const Notices = ({ setActiveKey, setNoticeId, showModal }) => {
 
     try {
       const data = await queryNotice(searchName.trim());
-      if (Array.isArray(data) && data.length > 0) setNotices(data);
+      if (!Array.isArray(data)) throw new Error();
+
+      if (data.length > 0) setNotices(data);
       else setNotices([]);
     } catch (error) {
       showModal("공지사항 검색에 실패했습니다.");
