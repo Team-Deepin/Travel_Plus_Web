@@ -52,6 +52,8 @@
   background-color: var(--color-Point1);
   border-radius: 8px;
   cursor: pointer;
+  font-family: var(--font-Main);
+  font-size: var(--font-size-Body);
 }
 
 .X {

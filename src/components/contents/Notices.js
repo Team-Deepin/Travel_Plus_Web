@@ -91,9 +91,26 @@ const Notices = ({ setActiveKey, setNoticeId }) => {
     setActiveKey("noticeCon");
   };
 
+  // 공지사항 추가
+  const getNextNoticeId = () => {
+    if (notices.length === 0) return 1;
+    const maxId = Math.max(...notices.map((n) => Number(n.noticeId)));
+    return maxId + 1;
+  };
+
   return (
     <div className="container">
       <div className="search">
+        <button
+          onClick={() => {
+            const newId = getNextNoticeId();
+            setNoticeId(newId);
+            setActiveKey("noticeCon");
+          }}
+          style={{ marginRight: "12px" }}
+        >
+          ➕ 공지사항 추가
+        </button>
         <input
           type="text"
           placeholder="공지사항 제목 검색"
