@@ -13,7 +13,7 @@ const Questions = ({ setActiveKey, setQuestionId, showModal }) => {
   // 문의사항 목록 불러오기
   const fetchQuestions = async () => {
     try {
-      const data = await getQuestions();
+      const {data} = await getQuestions();
       if (!Array.isArray(data)) throw new Error();
       
       if (data.length > 0) setQuestions(data);
@@ -31,7 +31,7 @@ const Questions = ({ setActiveKey, setQuestionId, showModal }) => {
     }
 
     try {
-      const data = await queryQuestion(searchName.trim());
+      const {data} = await queryQuestion(searchName.trim());
       if (!Array.isArray(data)) throw new Error();
 
       if (data.length > 0) setQuestions(data);

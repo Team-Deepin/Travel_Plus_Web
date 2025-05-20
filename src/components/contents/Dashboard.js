@@ -34,19 +34,19 @@ const Dashboard = ({showModal}) => {
   useEffect(() => {
     const fetchDashboard = async () => {
       try {
-        const dashboard = await getDashboard();
-        setTotalusers(dashboard.totalUsers);
-        setNewUsers(dashboard.newUsers);
-        setCurrentUser(dashboard.currentUser);
-        setPopularPlaces(dashboard.popularPlace);
+        const {data} = await getDashboard();
+        setTotalusers(data.totalUsers);
+        setNewUsers(data.newUsers);
+        setCurrentUser(data.currentUser);
+        setPopularPlaces(data.popularPlace);
         setInquiryStats({
-          totalInquiries: dashboard.totalInquire,
-          answeredInquiries: dashboard.AnsweredInquire,
+          totalInquiries: data.totalInquire,
+          answeredInquiries: data.AnsweredInquire,
           unansweredInquiries:
-            dashboard.totalInquire - dashboard.AnsweredInquire,
+            data.totalInquire - data.AnsweredInquire,
         });
-        setContentRates(dashboard.content);
-        setCooperationRates(dashboard.cooperation);
+        setContentRates(data.content);
+        setCooperationRates(data.cooperation);
       } catch {
         showModal("대시보드 조회에 실패했습니다.");
       }

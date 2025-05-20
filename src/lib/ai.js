@@ -10,7 +10,7 @@ export async function getModels() {
   }
 }
 
-export async function trainModel(name, nEstimators, learningRate, maxDepth, information) {
+export async function trainContentModel(name, nEstimators, learningRate, maxDepth, information) {
   try {
     const { resultCode } = await api.post(`/admin/models/content/train`,
       {
@@ -18,6 +18,25 @@ export async function trainModel(name, nEstimators, learningRate, maxDepth, info
         nEstimators: nEstimators,
         learningRate: learningRate,
         maxDepth: maxDepth,
+        information: information,
+      }
+    )
+    if (resultCode === 200) return 1;
+    else return null;
+  } catch (error) {
+    console.error("모델 훈련에 실패했습니다. :", error);
+    return null;
+  }
+}
+
+export async function trainCooperationModel(name, nEstimators, maxDepth, minSamplesSplit, information) {
+  try {
+    const { resultCode } = await api.post(`/admin/models/cooperation/train`,
+      {
+        name: name,
+        nEstimators: nEstimators,
+        maxDepth: maxDepth,
+        minSamplesSplit: minSamplesSplit,
         information: information,
       }
     )

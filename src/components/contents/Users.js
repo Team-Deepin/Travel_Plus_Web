@@ -22,7 +22,7 @@ const User = ({showModal}) => {
   // 회원 목록 불러오기
   const fetchUsers = async () => {
     try {
-      const data = await getUsers();
+      const {data} = await getUsers();
       if (!Array.isArray(data)) throw new Error();
 
       if (data.length > 0) setUsers(data);
@@ -40,7 +40,7 @@ const User = ({showModal}) => {
     }
 
     try {
-      const data = await queryUser(searchName.trim());
+      const {data} = await queryUser(searchName.trim());
       if (!Array.isArray(data)) throw new Error();
 
       if (data.length > 0) setUsers(data);
@@ -51,9 +51,9 @@ const User = ({showModal}) => {
     }
   };
 
-  const handleDeactivate = (userId) => {
+  const handleDeactivate = async (userId) => {
     try {
-      deactiveUser(userId);
+      await deactiveUser(userId);
       fetchUsers();
     } catch (error) {
       showModal("회원 정지에 실패했습니다.");

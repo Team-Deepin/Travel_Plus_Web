@@ -8,6 +8,7 @@ const NoticeCon = ({ noticeId, setActiveKey, showModal }) => {
   const [notice, setNotice] = useState(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [noticeType, setNoticeType] = useState("");
 
   useEffect(() => {
     const fetchNotice = async () => {
@@ -18,17 +19,18 @@ const NoticeCon = ({ noticeId, setActiveKey, showModal }) => {
           title: "",
           contents: "",
           date: today,
-          noticeType: "공지",
+          noticeType: "",
         });
         setTitle("");
         setContent("");
         return;
       }
       try {
-        const data = await getNotice(noticeId);
+        const {data} = await getNotice(noticeId);
         setNotice(data);
         setTitle(data.title);
         setContent(data.content);
+        setNoticeType(data.noticeType);
       } catch (error) {
         showModal("공지사항 조회에 실패했습니다.");
       }
@@ -39,6 +41,7 @@ const NoticeCon = ({ noticeId, setActiveKey, showModal }) => {
 
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleContentChange = (e) => setContent(e.target.value);
+  const handleNoticeTypeChange= (e) => setNoticeType(e.target.value);
 
   const handleSubmit = async () => {
     try {
@@ -55,7 +58,7 @@ const NoticeCon = ({ noticeId, setActiveKey, showModal }) => {
     <div className="container">
       <h2>공지사항 등록</h2>
       {noticeId && <p>
-        <strong>공지 ID:</strong> {String(notice.noticeId).padStart(8, "0")}
+        <strong>공지 ID:</strong> {String(noticeId).padStart(8, "0")}
       </p>}
       <p>
         <strong>제목:</strong>
@@ -75,6 +78,16 @@ const NoticeCon = ({ noticeId, setActiveKey, showModal }) => {
         value={content}
         onChange={handleContentChange}
       />
+      <p>
+        <strong>공지 타입:</strong>
+        <input
+          type="text"
+          className="notiCon-text-input"
+          placeholder=""
+          value={noticeType}
+          onChange={handleNoticeTypeChange}
+        />
+      </p>
       <br />
       <button className="login-button" onClick={handleSubmit}>
         등록 완료

@@ -12,7 +12,7 @@ const Places = ({showModal}) => {
   // 여행지 목록 불러오기
   const fetchPlaces = async () => {
     try {
-      const data = await getPlaces();
+      const {data} = await getPlaces();
       if (!Array.isArray(data)) throw new Error();
       
       if (data.length > 0) setPlaces(data);

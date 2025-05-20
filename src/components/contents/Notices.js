@@ -13,7 +13,7 @@ const Notices = ({ setActiveKey, setNoticeId, showModal }) => {
   // 공지사항 목록 불러오기
   const fetchNotices = async () => {
     try {
-      const data = await getNotices();
+      const {data} = await getNotices();
       if (!Array.isArray(data)) throw new Error();
       
       if (data.length > 0) setNotices(data);
@@ -31,7 +31,7 @@ const Notices = ({ setActiveKey, setNoticeId, showModal }) => {
     }
 
     try {
-      const data = await queryNotice(searchName.trim());
+      const {data} = await queryNotice(searchName.trim());
       if (!Array.isArray(data)) throw new Error();
 
       if (data.length > 0) setNotices(data);
@@ -134,7 +134,10 @@ const Notices = ({ setActiveKey, setNoticeId, showModal }) => {
                     <button
                       className="X"
                       title="삭제"
-                      onClick={() => handleDelete(notice.id)}
+                      onClick={(e) => {
+                        e.stopPropagation(); 
+                        handleDelete(notice.id)}
+                      }
                     >
                       ❌
                     </button>

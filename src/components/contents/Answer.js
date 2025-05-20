@@ -11,7 +11,7 @@ const Answer = ({ questionId, setActiveKey, showModal }) => {
   useEffect(() => {
     const fetchQuestion = async () => {
       try {
-        const data = await getQuestion(questionId);
+        const {data} = await getQuestion(questionId);
         setQuestion(data);
         setAnswer(data.answer || "");
       } catch (error) {
