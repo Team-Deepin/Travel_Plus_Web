@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import "../../styles/Web.css";
-import { getNotice, postNotice } from "../../lib/notices";
+import { getNotice, postNotice, putNotice } from "../../lib/notices";
 
 const NoticeCon = ({ noticeId, setActiveKey, showModal }) => {
   const [notice, setNotice] = useState(null);
@@ -45,7 +45,11 @@ const NoticeCon = ({ noticeId, setActiveKey, showModal }) => {
 
   const handleSubmit = async () => {
     try {
-      await postNotice(title, content, "공지");
+      if (noticeId) {
+        await putNotice(noticeId, title, content, noticeType);
+      } else {
+        await postNotice(title, content, noticeType);
+      }
       setActiveKey("notices");
     } catch (error) {
       showModal("공지사항 등록에 실패했습니다.");

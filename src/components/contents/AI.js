@@ -2,32 +2,32 @@
 
 import React, { useState } from "react";
 import "../../styles/Web.css";
-import CatBoostTab from "./CatBoostTab.js";
-import FactorizationTab from "./FactorizationTab.js";
+import ModelList from "./ModelList.js";
+import ModelTrain from "./ModelTrain.js";
 
 const AI = ({showModal}) => {
-  const [activeTab, setActiveTab] = useState("CatBoost");
+  const [activeTab, setActiveTab] = useState("List");
 
   return (
     <div>
       <div className="ai-tabs">
         <button
-          className={`ai-tab-button ${activeTab === "CatBoost" ? "active" : ""}`}
-          onClick={() => setActiveTab("CatBoost")}
+          className={`ai-tab-button ${activeTab === "List" ? "active" : ""}`}
+          onClick={() => setActiveTab("List")}
         >
-          CatBoost
+          모델 목록
         </button>
         <button
-          className={`ai-tab-button ${activeTab === "Factorization" ? "active" : ""}`}
-          onClick={() => setActiveTab("Factorization")}
+          className={`ai-tab-button ${activeTab === "Train" ? "active" : ""}`}
+          onClick={() => setActiveTab("Train")}
         >
-          Factorization
+          모델 훈련
         </button>
       </div>
 
-      <div className="ai-table">
-        {activeTab === "CatBoost" && <CatBoostTab />}
-        {activeTab === "Factorization" && <FactorizationTab />}
+      <div>
+        {activeTab === "List" && <ModelList showModal={showModal} />}
+        {activeTab === "Train" && <ModelTrain showModal={showModal} />}
       </div>
     </div>
   );

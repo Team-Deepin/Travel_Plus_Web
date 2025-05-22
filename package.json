@@ -41,5 +41,9 @@
   },
   "devDependencies": {
     "source-map-loader": "^5.0.0"
+  },
+  "options": {
+    "allowedHosts": ["localhost", ".localhost"],
+    "proxy": "https://ceprj.gachon.ac.kr:60008/"
   }
 }

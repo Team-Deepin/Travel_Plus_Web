@@ -106,6 +106,12 @@
   color: var(--color-Background);
 }
 
+.hr-divider {
+  border: none;
+  border-top: 1px solid #000;
+  margin: 16px 0;
+}
+
 /* -------------------------------------------------- */
 
 /* 대시보드 */
@@ -376,6 +382,8 @@
 .ai-tabs {
   display: flex;
   gap: 8px;
+  width: 100%;
+  min-width: 1400px;
 }
 
 .ai-tab-button {
@@ -394,25 +402,140 @@
   background-color: var(--color-Main);
 }
 
-.ai-table {
-  display: flex;
+.ai-list-table {
   width: 100%;
-  background-color: var(--color-Main);
-  border-collapse: collapse;
-  min-width: 800px;
+  min-width: 1400px;
   min-height: 850px;
-  border-radius: 0 0 12px 12px;
-  margin-bottom: 24px;
+  border-collapse: collapse;
+  background-color: var(--color-Main);
+  border-radius: 0 0 16px 16px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  font-family: var(--font-Main);
   overflow: hidden;
 }
 
-.ai-table th {
+.ai-list-table thead {
+  border-bottom: 1px solid var(--color-Point2);
+}
+
+.ai-list-table th,
+.ai-list-table td {
   padding: 24px;
+  text-align: center;
   font-weight: normal;
   font-size: var(--font-size-SubTitle);
   font-family: var(--font-Main);
+}
+
+.ai-list-table tbody tr:hover {
+  background-color: var(--color-Background2);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+}
+
+/* 모델 명 */
+.ai-list-table th:nth-child(1),
+.ai-list-table td:nth-child(1) {
+  width: 10%;
+}
+
+/* 타입 */
+.ai-list-table th:nth-child(2),
+.ai-list-table td:nth-child(2) {
+  width: 10%;
+}
+
+/* 상세 */
+.ai-list-table th:nth-child(3),
+.ai-list-table td:nth-child(3) {
+  width: 20%;
+}
+
+/* nEstimators */
+.ai-list-table th:nth-child(4),
+.ai-list-table td:nth-child(4) {
+  width: 10%;
+}
+
+/* maxDepth */
+.ai-list-table th:nth-child(5),
+.ai-list-table td:nth-child(5) {
+  width: 10%;
+}
+
+/* learningRate */
+.ai-list-table th:nth-child(6),
+.ai-list-table td:nth-child(6) {
+  width: 10%;
+}
+
+/* rate */
+.ai-list-table th:nth-child(7),
+.ai-list-table td:nth-child(7) {
+  width: 10%;
+}
+
+/* createDate */
+.ai-list-table th:nth-child(8),
+.ai-list-table td:nth-child(8) {
+  width: 10%;
+}
+
+/* 적용 */
+.ai-list-table th:nth-child(9),
+.ai-list-table td:nth-child(9) {
+  width: 10%;
+}
+
+.no-hover:hover {
+  background-color: inherit !important;
+  cursor: default !important;
+}
+
+.ai-text-input {
+  width: 300px;
+  height: 40px;
+  font-family: var(--font-Main);
+  font-size: var(--font-size-Body);
+  color: #000;
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin: 12px;
+}
+
+.ai-text-box {
+  width: 90%;
+  min-height: 150px;
+  resize: vertical;
+  font-family: var(--font-Main);
+  font-size: var(--font-size-Body);
+  color: #000;
+  padding: 12px 16px;
+  line-height: 1.5;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin: 12px;
+}
+
+.ai-train-container {
+  width: 100%;
+  min-width: 1400px;
+  min-height: 850px;
+  border-collapse: collapse;
+  background-color: var(--color-Main);
+  border-radius: 0 0 16px 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: var(--font-Main);
+}
+
+.ai-label {
+  margin: 20px 0 0 16px;
+  font-weight: bold;
 }
 
 /* -------------------------------------------------- */
