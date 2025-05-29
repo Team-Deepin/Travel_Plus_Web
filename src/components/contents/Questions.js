@@ -63,7 +63,7 @@ const Questions = ({ setActiveKey, setQuestionId, showModal }) => {
       <div className="search">
         <input
           type="text"
-          placeholder="작성자 ID 검색"
+          placeholder="제목 검색"
           value={searchName}
           onChange={(e) => setSearchName(e.target.value)}
           onKeyDown={handleKeyPress}

@@ -6,23 +6,44 @@ import { applyModel, getModels } from "../../lib/ai";
 
 const ModelList = ({showModal}) => {
   const [models, setModels] = useState([]);
+  const [activatedMenu, setActivatedMenu] = useState('content');
+  const [contentModels, setContentModels] = useState([]);
+  const [coopModels, setCoopModels] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const modelsPerPage = 10;
 
+  const fetchModelList = async () => {
+    try {
+      const {data} = await getModels();
+      const contentList = data.content;
+      const coopList = data.cooperation;
+      if (!Array.isArray(contentList) || !Array.isArray(coopList)) throw new Error();
+      
+      if (contentList.length > 0) setContentModels(contentList);
+      else setContentModels([]);
+      if (coopList.length > 0) setCoopModels(coopList);
+      else setCoopModels([]);
+    } catch (error) {
+      showModal("인공지능 모델 목록 조회에 실패했습니다.");
+    }
+  };
+
   useEffect(() => {
-    const fetchModelList = async () => {
-      try {
-        const {data} = await getModels();
-        if (!Array.isArray(data)) throw new Error();
-        
-        if (data.length > 0) setModels(data);
-        else setModels([]);
-      } catch (error) {
-        showModal("인공지능 모델 목록 조회에 실패했습니다.");
-      }
-    };
     fetchModelList();
   }, []);
+
+  const handleActivateContent = () => {
+    setActivatedMenu('content');
+  }
+
+  const handleActivateCoop = () => {
+    setActivatedMenu('coop');
+  }
+
+  useEffect(() => {
+    if (activatedMenu === 'content') setModels(contentModels);
+    else setModels(coopModels);
+  }, [activatedMenu, contentModels, coopModels]);
 
   const handleApply = async (modelId, modelType) => {
     const confirmed = window.confirm("정말 이 모델을 적용하시겠습니까?");
@@ -30,21 +51,32 @@ const ModelList = ({showModal}) => {
 
     const result = await applyModel(modelId, modelType);
     if (!result) showModal("모델 적용에 실패했습니다.");
+    else fetchModelList();
   };
 
   return (
     <div className="ai-list-table">
+      <div
+        className="model-list-actions"
+        style={{ marginBottom: "12px", display: "flex", gap: "10px" }}
+      >
+        <button style={{ margin: "12px" }} className="login-button" onClick={handleActivateContent}>
+          컨텐츠 기반 모델
+        </button>
+        <button style={{ margin: "12px" }} className="login-button" onClick={handleActivateCoop}>
+          협업 모델
+        </button>
+      </div>
       <table>
         <thead>
           <tr>
             <th>모델명</th>
             <th>타입</th>
             <th>상세</th>
-            <th>nEstimators</th>
             <th>maxDepth</th>
-            <th>learningRate</th>
+            <th>{activatedMenu === 'content' ? 'learningRate' : 'minSamplesSplit'}</th>
             <th>rate</th>
-            <th>createDate</th>
+            <th>생성일</th>
             <th>적용</th>
           </tr>
         </thead>
@@ -63,7 +95,7 @@ const ModelList = ({showModal}) => {
               )
               .map((model) => (
                 <tr
-                  key={model.id}
+                  key={model.modelId}
                   onMouseEnter={(e) =>
                     (e.currentTarget.style.backgroundColor =
                       "var(--color-Background2)")
@@ -72,17 +104,21 @@ const ModelList = ({showModal}) => {
                     (e.currentTarget.style.backgroundColor = "")
                   }
                 >
-                  <td>{String(model.id).padStart(8, "0")}</td>
-                  <td>{model.title}</td>
-                  <td>{model.createdDate}</td>
-                  <td>{model.noticeType}</td>
+                  <td>{model.name}</td>
+                  <td>{model.modelType}</td>
+                  <td>{model.information}</td>
+                  <td>{model.maxDepth}</td>
+                  <td>{activatedMenu === 'content' ? model.learningRate : model.minSamplesSplit}</td>
+                  <td>{model.rate ? model.rate : '-'}</td>
+                  <td>{model.createDate}</td>
                   <td>
                     <button
                       className="X"
                       title="적용"
-                      onClick={() => handleApply(model.id)}
+                      onClick={() => handleApply(model.modelId)}
+                      disabled = { model.isActive }
                     >
-                      ❌
+                      { model.isActive ? "⭕" : "❌" }
                     </button>
                   </td>
                 </tr>
@@ -111,4 +147,3 @@ const ModelList = ({showModal}) => {
 };
 
 export default ModelList;
-  
